@@ -16,6 +16,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import android.content.Intent
 import at.ac.tuwien.mns.cellinfo.DetailActivity
+import com.google.gson.Gson
 import java.util.*
 
 
@@ -31,7 +32,7 @@ class CellListViewFragment : Fragment(), AdapterView.OnItemClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.list_layout, container, false)
-        listView = rootView.findViewById<ListView>(R.id.cell_list_view)
+        listView = rootView.findViewById(R.id.cell_list_view)
         adapter = CellListViewAdapter(context, ArrayList(0))
         listView?.adapter = adapter
         listView?.onItemClickListener = this
@@ -43,6 +44,7 @@ class CellListViewFragment : Fragment(), AdapterView.OnItemClickListener {
                         var cells = ArrayList<CellDetails>()
                         // find active cell and add it as first item to list
                         for (cell in cellList) {
+                            Log.d("cellDetailsList", "onCreateView() called: $cell}")
                             if (cell.registered) {
                                 cells.add(cell)
                                 cellList.remove(cell)
